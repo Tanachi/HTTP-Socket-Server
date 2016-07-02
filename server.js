@@ -23,13 +23,13 @@ var server = net.createServer(function(socket){
     if(locationName === '/'){
       filePath = './public/index.html';
     }
-    else if(locationName === '/hydrogen'){
+    else if(locationName === '/hydrogen.html'){
       filePath = './public/hydrogen.html';
     }
-    else if(locationName === '/hellium'){
-      filePath = './public/hellim.html';
+    else if(locationName === '/helium.html'){
+      filePath = './public/helium.html';
     }
-    else if(locationName === '/css/styles'){
+    else if(locationName === '/css/styles.css'){
       filePath = './public/css/stlyes.css';
     }
     else{
