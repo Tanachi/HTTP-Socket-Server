@@ -39,19 +39,20 @@ var server = net.createServer(function(socket){
     }
     var versionName = headerLines[2];
     var date = new Date();
-    var responseHeader =httpCode + ' ' + kong + '\n' +
+    var responseHeader = versionName + ' ' + httpCode + ' ' + kong + '\n' +
     'Date: ' + date.toUTCString() + '\n' +
     'Server: nginx/1.4.6 (Ubuntu)\n';
     if(methodName === 'GET'){
        fs.readFile(filePath, 'utf8', function(err, data){
-      if(err)
+        if(err)
           throw err;
-        socket.write(responseHeader + '\n' +  data);
+        socket.write(responseHeader + '\n' +  data, 'utf8');
         socket.end();
       });
     }
     else{
       socket.write(responseHeader +'\n');
+      socket.end('disconnected');
       socket.end();
     }
   });
@@ -59,12 +60,10 @@ var server = net.createServer(function(socket){
 
 server.listen(8080, function(){
   var finalPort = server.address().port;
-  console.log('listening on port \n', finalPort);
 });
 
 server.on('error', function(err){
   this.listen(8080, function(){
     var finalPort =  server.address().port;
-    console.log('listening on port \n', finalPort);
   });
 });
