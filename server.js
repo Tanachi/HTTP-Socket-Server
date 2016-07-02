@@ -3,14 +3,14 @@ var a = process.stdin;
 a.setEncoding('utf-8');
 var b = process.stdout;
 var fs = require('fs');
-var pageData = null;
-var filePath = '';
-var httpCode = 200;
-var kong = 'OK';
 
 
 var server = net.createServer(function(socket){
   socket.on('data', function(chunk){
+    var pageData = null;
+    var filePath = '';
+    var httpCode = 200;
+    var kong = 'OK';
     var webPage;
     var lines = chunk.toString().split('\n');
     var header;
@@ -30,7 +30,7 @@ var server = net.createServer(function(socket){
       filePath = './public/helium.html';
     }
     else if(locationName === '/css/styles.css'){
-      filePath = './public/css/stlyes.css';
+      filePath = './public/css/styles.css';
     }
     else{
       filePath = './public/404.html';
@@ -39,7 +39,7 @@ var server = net.createServer(function(socket){
     }
     var versionName = headerLines[2];
     var date = new Date();
-    var responseHeader = versionName + ' ' + httpCode + ' ' + kong + '\n' +
+    var responseHeader =httpCode + ' ' + kong + '\n' +
     'Date: ' + date.toUTCString() + '\n' +
     'Server: nginx/1.4.6 (Ubuntu)\n';
     if(methodName === 'GET'){
